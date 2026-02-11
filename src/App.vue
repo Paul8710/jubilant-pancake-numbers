@@ -46,7 +46,7 @@
     <div class="bg-white rounded-2xl p-8 mb-5 shadow-xl animate-fade-in">
       <button 
         @click="feelingLucky"
-        class="w-full py-5 text-lg font-semibold text-white rounded-xl transition-all border-none lucky-gradient hover:lucky-gradient-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        class="w-full py-5 text-lg font-semibold text-white rounded-xl transition-all border-none lucky-gradient hover:lucky-gradient-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         🎲 I'm Feeling Lucky!
       </button>
