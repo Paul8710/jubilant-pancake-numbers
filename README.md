@@ -17,23 +17,26 @@ A beautiful web application that displays fascinating facts about numbers using 
 
 ## Local Development
 
-Simply open the `index.html` file in any modern web browser. No build process or dependencies required!
+This project is built with Vue.js 3 and uses Vite as the build tool.
 
 ```bash
-# On Mac/Linux
-open index.html
+# Install dependencies
+npm install
 
-# On Windows
-start index.html
+# Start development server
+npm run dev
 
-# Or use a simple HTTP server
-python -m http.server 8000
-# Then visit http://localhost:8000
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
 ## Technologies Used
 
-- Pure HTML5, CSS3, and JavaScript (no frameworks required)
+- Vue.js 3 with Composition API
+- Vite for fast development and building
 - math.tools API for number facts
 - Responsive design that works on desktop and mobile devices
 
