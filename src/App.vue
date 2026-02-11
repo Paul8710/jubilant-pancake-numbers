@@ -26,7 +26,7 @@
           />
           <button 
             @click="searchNumber"
-            class="px-8 py-4 bg-primary text-white rounded-xl text-base cursor-pointer transition-all font-semibold hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 max-md:w-full"
+            class="px-8 py-4 bg-primary text-white rounded-xl text-base transition-all font-semibold hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary max-md:w-full"
           >
             Search
           </button>
@@ -46,7 +46,7 @@
     <div class="bg-white rounded-2xl p-8 mb-5 shadow-xl animate-fade-in">
       <button 
         @click="feelingLucky"
-        class="w-full py-5 text-lg font-semibold text-white rounded-xl cursor-pointer transition-all border-none lucky-gradient hover:lucky-gradient-hover"
+        class="w-full py-5 text-lg font-semibold text-white rounded-xl transition-all border-none lucky-gradient hover:lucky-gradient-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         🎲 I'm Feeling Lucky!
       </button>
