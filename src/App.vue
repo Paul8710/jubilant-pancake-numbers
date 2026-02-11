@@ -25,20 +25,44 @@
           />
           <button @click="searchNumber">Search</button>
         </div>
-        <div v-if="searchResults" v-html="searchResults"></div>
+        <div v-if="searchState.loading" class="loading">Searching for facts...</div>
+        <div v-else-if="searchState.error" class="result-item error">{{ searchState.error }}</div>
+        <div v-else-if="searchState.facts.length > 0" class="results">
+          <div v-for="(fact, index) in searchState.facts" :key="index" class="result-item">
+            <div class="result-title">{{ fact.title }}</div>
+            <div>{{ fact.text }}</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- I'm Feeling Lucky -->
     <div class="card">
       <button class="lucky-button" @click="feelingLucky">🎲 I'm Feeling Lucky!</button>
-      <div v-if="luckyResults" v-html="luckyResults"></div>
+      <div v-if="luckyState.loading" class="loading">Finding a lucky number for you...</div>
+      <div v-else-if="luckyState.error" class="result-item error">{{ luckyState.error }}</div>
+      <div v-else-if="luckyState.number" class="results">
+        <h3 style="text-align: center; color: #667eea; margin: 20px 0;">Your Lucky Number: {{ luckyState.number }}</h3>
+        <div v-for="(fact, index) in luckyState.facts" :key="index" class="result-item">
+          <div class="result-title">{{ fact.title }}</div>
+          <div>{{ fact.text }}</div>
+        </div>
+        <div v-if="luckyState.conversions" class="result-item">
+          <div class="result-title">Number System Conversions</div>
+          <div class="conversion-grid">
+            <div v-for="(value, system) in luckyState.conversions" :key="system" class="conversion-item">
+              <div class="conversion-label">{{ system }}</div>
+              <div class="conversion-value">{{ value }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 
 const API_BASE = 'https://math.tools/api/numbers'
 
@@ -46,8 +70,18 @@ const API_BASE = 'https://math.tools/api/numbers'
 const numberOfDay = ref('-')
 const dayFact = ref('Loading today\'s number...')
 const searchInput = ref('')
-const searchResults = ref('')
-const luckyResults = ref('')
+const searchState = reactive({
+  loading: false,
+  error: '',
+  facts: []
+})
+const luckyState = reactive({
+  loading: false,
+  error: '',
+  number: null,
+  facts: [],
+  conversions: null
+})
 
 // Helper function to fetch data from API
 async function fetchNumberData(number) {
@@ -109,72 +143,62 @@ async function searchNumber() {
   const number = searchInput.value
   
   if (!number || isNaN(number)) {
-    searchResults.value = '<div class="result-item error">Please enter a valid number.</div>'
+    searchState.loading = false
+    searchState.error = 'Please enter a valid number.'
+    searchState.facts = []
     return
   }
 
-  searchResults.value = '<div class="loading">Searching for facts...</div>'
+  searchState.loading = true
+  searchState.error = ''
+  searchState.facts = []
 
   try {
     const data = await fetchNumberData(number)
     displaySearchResults(data)
   } catch (error) {
-    searchResults.value = '<div class="result-item error">Unable to fetch facts for this number. Please try again.</div>'
+    searchState.loading = false
+    searchState.error = 'Unable to fetch facts for this number. Please try again.'
   }
 }
 
 // Display search results
 function displaySearchResults(data) {
+  searchState.loading = false
+  
   if (!data || !data.contents) {
-    searchResults.value = '<div class="result-item">No facts found for this number.</div>'
+    searchState.facts = []
     return
   }
 
-  let html = '<div class="results">'
+  const facts = []
   
   if (data.contents.trivia) {
-    html += `
-      <div class="result-item">
-        <div class="result-title">Trivia</div>
-        <div>${data.contents.trivia}</div>
-      </div>
-    `
+    facts.push({ title: 'Trivia', text: data.contents.trivia })
   }
   
   if (data.contents.math) {
-    html += `
-      <div class="result-item">
-        <div class="result-title">Math Fact</div>
-        <div>${data.contents.math}</div>
-      </div>
-    `
+    facts.push({ title: 'Math Fact', text: data.contents.math })
   }
   
   if (data.contents.date) {
-    html += `
-      <div class="result-item">
-        <div class="result-title">Date Fact</div>
-        <div>${data.contents.date}</div>
-      </div>
-    `
+    facts.push({ title: 'Date Fact', text: data.contents.date })
   }
 
   if (data.contents.year) {
-    html += `
-      <div class="result-item">
-        <div class="result-title">Year Fact</div>
-        <div>${data.contents.year}</div>
-      </div>
-    `
+    facts.push({ title: 'Year Fact', text: data.contents.year })
   }
 
-  html += '</div>'
-  searchResults.value = html
+  searchState.facts = facts
 }
 
 // I'm Feeling Lucky - Random number with conversion
 async function feelingLucky() {
-  luckyResults.value = '<div class="loading">Finding a lucky number for you...</div>'
+  luckyState.loading = true
+  luckyState.error = ''
+  luckyState.number = null
+  luckyState.facts = []
+  luckyState.conversions = null
 
   try {
     // Generate random number between 1 and 1000
@@ -182,49 +206,26 @@ async function feelingLucky() {
     
     const data = await fetchNumberData(randomNumber)
     
-    let html = '<div class="results">'
-    html += `<h3 style="text-align: center; color: #667eea; margin: 20px 0;">Your Lucky Number: ${randomNumber}</h3>`
+    luckyState.loading = false
+    luckyState.number = randomNumber
     
     // Display facts
+    const facts = []
     if (data.contents) {
       if (data.contents.trivia) {
-        html += `
-          <div class="result-item">
-            <div class="result-title">Trivia</div>
-            <div>${data.contents.trivia}</div>
-          </div>
-        `
+        facts.push({ title: 'Trivia', text: data.contents.trivia })
       }
       
       if (data.contents.math) {
-        html += `
-          <div class="result-item">
-            <div class="result-title">Math Fact</div>
-            <div>${data.contents.math}</div>
-          </div>
-        `
+        facts.push({ title: 'Math Fact', text: data.contents.math })
       }
     }
-
-    // Add number conversions
-    html += '<div class="result-item">'
-    html += '<div class="result-title">Number System Conversions</div>'
-    html += '<div class="conversion-grid">'
     
-    const conversions = getNumberConversions(randomNumber)
-    for (const [system, value] of Object.entries(conversions)) {
-      html += `
-        <div class="conversion-item">
-          <div class="conversion-label">${system}</div>
-          <div class="conversion-value">${value}</div>
-        </div>
-      `
-    }
-    
-    html += '</div></div></div>'
-    luckyResults.value = html
+    luckyState.facts = facts
+    luckyState.conversions = getNumberConversions(randomNumber)
   } catch (error) {
-    luckyResults.value = '<div class="result-item error">Unable to fetch lucky number. Please try again.</div>'
+    luckyState.loading = false
+    luckyState.error = 'Unable to fetch lucky number. Please try again.'
   }
 }
 
