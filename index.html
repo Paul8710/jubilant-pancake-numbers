@@ -4,9 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Facts - Daily Numbers & Fun Facts</title>
+    <link rel="stylesheet" href="style/stylesheet.css">
 </head>
-<body class="bg-gradient-app">
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+<body>
+    <div class="container">
+        <header>
+            <h1>Numberdle</h1>
+            <p class="subtitle">Trouve le nombre du jour</p>
+        </header>
+
+        <!-- Number of the Day -->
+        <div class="card number-of-day">
+            <div class="fact-text" id="dayFact">Le jeu charge...</div>
+            <div class="game-input-section">
+                <input type="number" id="guessInput" placeholder="Entre un nombre..." min="1" max="100" />
+                <button onclick="makeGuess()">Deviner</button>
+            </div>
+
+            <div id="gameStatus" class="game-status"></div>
+
+            <div class="game-table-container">
+                <table id="gameTable">
+                    <thead>
+                        <tr>
+                            <th>Valeur</th>
+                            <th>Nombre de chiffres</th>
+                            <th>Somme des chiffres</th>
+                            <th>Pair ?</th>
+                            <th>Palindrome ?</th>
+                            <th>Nombre premier ?</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gameTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="card">
+            <h2>En savoir plus sur d'autres superbes nombres ?</h2>
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="number" id="searchInput" placeholder="Cherche un nombre mon gourmand..." />
+                    <button onclick="searchNumber()">Tout savoir sur ce nombre</button>
+                </div>
+                <div id="searchResults"></div>
+            </div>
+            <button class="lucky-button" onclick="feelingLucky()">🎲 J'ai de la chance !</button>
+            <div id="luckyResults"></div>
+        </div>
+    </div>
+
+    <script src="scripts/script.js"></script>
 </body>
 </html>
