@@ -29,3 +29,12 @@ body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* Custom gradient utilities for the lucky button */
+@utility lucky-gradient {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+@utility lucky-gradient-hover {
+  background: linear-gradient(135deg, #d97fe8 0%, #e04659 100%);
+}

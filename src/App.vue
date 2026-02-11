@@ -46,10 +46,7 @@
     <div class="bg-white rounded-2xl p-8 mb-5 shadow-xl animate-fade-in">
       <button 
         @click="feelingLucky"
-        class="w-full py-5 text-lg font-semibold text-white rounded-xl cursor-pointer transition-all border-none"
-        style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"
-        @mouseenter="$event.target.style.background = 'linear-gradient(135deg, #d97fe8 0%, #e04659 100%)'"
-        @mouseleave="$event.target.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'"
+        class="w-full py-5 text-lg font-semibold text-white rounded-xl cursor-pointer transition-all border-none lucky-gradient hover:lucky-gradient-hover"
       >
         🎲 I'm Feeling Lucky!
       </button>
@@ -63,7 +60,7 @@
         </div>
         <div v-if="luckyState.conversions" class="bg-gray-50 p-4 rounded-xl mb-2.5 border-l-4 border-primary">
           <div class="font-semibold text-primary mb-1">Number System Conversions</div>
-          <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-2.5 mt-4">
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 mt-4">
             <div v-for="(value, system) in luckyState.conversions" :key="system" class="bg-indigo-50 p-2.5 rounded-lg text-center">
               <div class="text-sm text-primary font-semibold mb-1">{{ system }}</div>
               <div class="text-lg text-gray-800 break-all">{{ value }}</div>
