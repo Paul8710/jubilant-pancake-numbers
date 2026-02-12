@@ -37,7 +37,7 @@ const Numberdle = {
                 },
                 attempts: [],
                 gameOver: false,
-                date: StorageManager.getTodayString()
+                date: LocalStorageManager.getTodayString()
             }
 
             LocalStorageManager.saveGame(this.gameState)
