@@ -1,6 +1,6 @@
 // Website local storage management to avoid API saturation
 
-const StorageManager = {
+const LocalStorageManager = {
     NOD_KEY: 'nod',
     GAME_KEY: 'numberdle',
     PI_KEY: 'pi',

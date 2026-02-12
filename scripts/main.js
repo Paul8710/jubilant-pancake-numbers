@@ -5,8 +5,7 @@ window.addEventListener('load', async () => {
 
     try {
         await Promise.all([
-            Numberdle.init(),
-            //NumberSearch.init()
+            Numberdle.init()
         ])
 
         console.log('Numberdle app initialized successfully!')
@@ -16,7 +15,7 @@ window.addEventListener('load', async () => {
 
     setupEventListeners()
 
-    //scheduleMidnightReset()
+    scheduleMidnightReset()
 })
 
 function setupEventListeners() {
@@ -40,7 +39,7 @@ function setupEventListeners() {
 }
 
 function scheduleMidnightReset() {
-    const timeUntilMidnight = StorageManager.getTimeUntilMidnight()
+    const timeUntilMidnight = LocalStorageManager.getTimeUntilMidnight()
 
     setTimeout(() => {
         console.log('Midnight reached - reloading for new game...')
