@@ -1,29 +1,24 @@
-// Manage API calls
+// Manage all API calls
 
-export const APIHandler = {
-    NUMBERS_API: 'https://math.tools/api/numbers',
-    NUM_OF_DAY: '/nod',
-    PI_DIGIT: '',
-    INFO_ON_NUM: '',
+const APIHandler = {
+    BASE_API: 'https://api.math.tools/numbers',
+    NOD_ROUTE: '/nod',
+    PI_ROUTE: '/pi',
+    CONVERT_ROUTE: '/base',
 
     async fetchNumberOfDay() {
         try {
-            const response = await fetch(`${this.NUMBERS_API}${this.NUM_OF_DAY}`)
-            if(!response.ok) {
-                throw new Error('API request failed')
+            const response = await fetch(`${this.BASE_API}${this.NOD_ROUTE}`, {method: "GET"})
+            if (!response.ok) {
+                throw new Error('Nod API request failed')
             }
-            return await response.json()
+
+            const data = await response.json()
+
+            return data.contents.nod.numbers
         } catch (err) {
-            console.log('Error fetching nod: ', err)
+            console.error('Error fetching number of day:', err)
+            throw err
         }
-    },
-
-    async fetchPiDigits() {
-        
-    },
-
-    async fetchInfoOn(number) {
-
     }
 }
-

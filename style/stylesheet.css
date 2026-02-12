@@ -381,6 +381,10 @@ button:disabled {
     color: #473BF0;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     h1 {
