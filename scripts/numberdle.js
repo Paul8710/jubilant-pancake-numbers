@@ -168,7 +168,7 @@ const Numberdle = {
 
     // Update status message
     updateStatus(message, type = 'info') {
-        const statusDiv = document.getElementById('dayFact')
+        const statusDiv = document.getElementById('gameStatus')
         statusDiv.textContent = message
         statusDiv.className = `game-status status-${type}`
     },

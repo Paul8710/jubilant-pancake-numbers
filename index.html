@@ -15,15 +15,13 @@
 
         <!-- Jeu Numberdle -->
         <div class="card number-of-day">
-            <div class="fact-text" id="dayFact">Le jeu charge...</div>
+            <div id="gameStatus" class="game-status">Le jeu charge...</div>
             
             <div class="hidden" id="hiddenLoading">
                 <div class="game-input-section">
                     <input type="number" id="guessInput" placeholder="Entre un nombre..." min="1" max="999999999" />
                     <button onclick="makeGuess()">Deviner</button>
                 </div>
-
-                <div id="gameStatus" class="game-status"></div>
 
                 <div class="game-table-container">
                     <table id="gameTable">
