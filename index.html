@@ -1,12 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number Facts - Daily Numbers & Fun Facts</title>
+    <title>Numberdle - Trouve le nombre du jour</title>
+    <link rel="stylesheet" href="style/stylesheet.css">
 </head>
-<body class="bg-gradient-app">
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+<body>
+    <div class="container">
+        <header>
+            <h1>Numberdle</h1>
+            <p class="subtitle">Trouve le nombre du jour</p>
+        </header>
+
+        <!-- Jeu Numberdle -->
+        <div class="card number-of-day">
+            <div class="fact-text" id="dayFact">Le jeu charge...</div>
+            
+            <div class="game-input-section">
+                <input type="number" id="guessInput" placeholder="Entre un nombre..." min="1" max="999999999" />
+                <button onclick="makeGuess()">Deviner</button>
+            </div>
+
+            <div id="gameStatus" class="game-status"></div>
+
+            <div class="game-table-container">
+                <table id="gameTable">
+                    <thead>
+                        <tr>
+                            <th>Valeur</th>
+                            <th>Nombre de chiffres</th>
+                            <th>Somme des chiffres</th>
+                            <th>Pair ?</th>
+                            <th>Palindrome ?</th>
+                            <th>Nombre premier ?</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gameTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recherche dans Pi -->
+        <div class="card">
+            <h2>Rechercher des informations sur un nombre</h2>
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="number" id="searchInput" placeholder="Vas y, choisi ton nombre mon gourmand..." min="0" max="999999999" />
+                    <button onclick="searchNumber()">🔎</button>
+                    <button class="lucky-button" onclick="feelingLucky()">🎲 J'ai de la chance !</button>
+                </div>
+                <div id="searchResults"></div>
+            </div>
+        </div>
+
+        <!-- Affichage de Pi -->
+        <div class="pi-display" id="piDisplay"></div>
+    </div>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/apiHandler.js"></script>
+    <script src="scripts/numberdle.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/luckySearch.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
