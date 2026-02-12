@@ -1,6 +1,6 @@
 // Main application initialization
 
-window.addEventListener('load', async () => {
+window.addEventListener('DOMContentLoaded', async () => {
     console.log('Numberdle app initializing...')
 
     try {

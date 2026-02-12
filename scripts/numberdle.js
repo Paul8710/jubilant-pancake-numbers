@@ -16,9 +16,13 @@ const Numberdle = {
         if(savedGame) {
             this.gameState = savedGame
             this.renderTable()
-            this.updateStatus()
+
+            document.getElementById('hiddenLoading').classList.remove('hidden')
+
+            this.updateStatus('🎯 Devine le nombre du jour !')
         } else {
             await this.createNewGame()
+
         }
     },
 
@@ -103,12 +107,12 @@ const Numberdle = {
         return {
             value: guessValue,
 
-            valueColor: guessValue === target ? 'correct' : 'wrong',
+            valueColor: this.getProximityColor(guessValue, target, numberInfoChecker.getDistanceForDigit(guessDigitCount)),
             valueArrow: guessValue < target ? 'up' : (guessValue > target ? 'down' : null),
             
             // Digit count comparison
             digitCount: guessDigitCount,
-            digitCountColor: this.getProximityColor(guessDigitCount, targetDigitCount, 100),
+            digitCountColor: this.getProximityColor(guessDigitCount, targetDigitCount),
             digitCountArrow: guessDigitCount < targetDigitCount ? 'up' : (guessDigitCount > targetDigitCount ? 'down' : null),
             
             // Digit sum comparison

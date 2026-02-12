@@ -6,7 +6,7 @@ const numberInfoChecker = {
     },
 
     isPalindrome(num) {
-        return num.toString() === num.toString().reverse()
+        return num.toString() === num.toString().split("").reverse().join("")
     },
 
     isPrime(num) {
@@ -26,5 +26,11 @@ const numberInfoChecker = {
 
     getDigitsAmount(num) {
         return num.toString().length
+    },
+
+    getDistanceForDigit(digitAmount) {
+        if (digitAmount === 1) return 1
+        if (digitAmount === 2) return 10
+        return Math.pow(10, digitAmount - 2) * 5
     }
 }
