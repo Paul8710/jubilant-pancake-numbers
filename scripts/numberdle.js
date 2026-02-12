@@ -27,14 +27,13 @@ const Numberdle = {
             const dailyNumber = await APIHandler.fetchNumberOfDay()
 
             this.gameState = {
-                targetNumber: parseInt(dailyData.number),
+                targetNumber: parseInt(dailyNumber.number),
                 targetData: {
-                    number: parseInt(dailyData.number),
-                    even: dailyData['general-facts'].even.value,
-                    palindrome: dailyData['general-facts'].palindrome.value,
-                    digitSum: dailyData.recreational.digitssum.value,
-                    digitAmount: dailyData.recreational.noofdigits.value,
-                    prime: dailyData['prime-facts'].prime.value
+                    even: dailyNumber['general-facts'].even.value,
+                    palindrome: dailyNumber['general-facts'].palindrome.value,
+                    digitSum: dailyNumber.recreational.digitssum.value,
+                    digitAmount: dailyNumber.recreational.noofdigits.value,
+                    prime: dailyNumber['prime-facts'].prime.value
                 },
                 attempts: [],
                 gameOver: false,
