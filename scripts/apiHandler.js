@@ -23,7 +23,8 @@ const APIHandler = {
     },
 
     async fetchConvertedNumber(num, base) {
-        try {
+        return num.toString(base)
+        /* try {
             const response = await fetch(`${this.BASE_API}${this.CONVERT_ROUTE}?number=${num}&to=${base}`, {method: "GET"})
 
             if (!response.ok) {
@@ -35,8 +36,8 @@ const APIHandler = {
             return data.contents
         } catch (err) {
             console.error('Error fetching converted number:', err)
-            return num.toString(base)
-        }
+            
+        } */
         
     }
 }
