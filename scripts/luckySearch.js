@@ -9,7 +9,7 @@ const LuckySearch = {
 
         // Generate random number between 2 and 128
         const randomNumber = Math.floor(Math.random() * (9007199254740) + 1)
-        const randomBase = Math.floor(Math.random() * (32-2 +1) + 1)
+        const randomBase = Math.floor(Math.random() * (32-2 +1) + 2)
 
         const luckyResult = document.getElementById('luckySearch')
         luckyResult.innerHTML = '<div class="loading">🎲 Génération d\'un nombre chanceux...</div>'
