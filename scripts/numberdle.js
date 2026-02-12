@@ -15,8 +15,8 @@ const Numberdle = {
 
         if(savedGame) {
             this.gameState = savedGame
-            this.renderTable
-            this.updateStatus
+            this.renderTable()
+            this.updateStatus()
         } else {
             await this.createNewGame()
         }
@@ -59,6 +59,16 @@ const Numberdle = {
 
         const guess = parseInt(this.input.value)
 
+        if (!guess || isNaN(guess) || guess < 1) {
+            this.updateStatus('⚠️ Entre un nombre valide !', 'error')
+            return
+        }
+
+        if (this.gameState.attempts.some(a => a.value === guess)) {
+            this.updateStatus('⚠️ Tu as déjà essayé ce nombre !', 'error')
+            return
+        }
+
         const attemptData = this.analyzeGuess(guess)
 
         this.gameState.attempts.push(attemptData)
@@ -70,8 +80,8 @@ const Numberdle = {
             this.updateStatus(`🎉 Bravo ! Tu as trouvé le nombre ${this.gameState.targetNumber} en ${this.gameState.attempts.length} essai(s) !`, 'success')
         }
 
-        LocalStorageManager.savedGame(this.gameState)
-        this.renderTable
+        LocalStorageManager.saveGame(this.gameState)
+        this.renderTable()
     },
 
     analyzeGuess(guessValue) {
