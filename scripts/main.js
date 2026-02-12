@@ -16,29 +16,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     setupEventListeners()
 
     scheduleMidnightReset()
-
-    
-    const backgroundNumbers = document.querySelector('.background-numbers')
-    const numberOfColumns = 20; // Nombre de colonnes de chiffres
-
-    for (let i = 0; i < numberOfColumns; i++) {
-        const column = document.createElement('div')
-        column.className = 'number-column'
-        column.style.left = `${(i * (100 / numberOfColumns))}%`
-
-        // Générer une colonne de chiffres aléatoires
-        let numbers = ''
-        for (let j = 0; j < 100; j++) {
-            numbers += Math.floor(Math.random() * 10) + '\n'
-        }
-        column.textContent = numbers
-
-        // Ajouter une animation avec un délai aléatoire
-        column.style.animationDuration = `${5 + Math.random() * 10}s`
-        column.style.animationDelay = `${Math.random() * 5}s`
-
-        backgroundNumbers.appendChild(column)
-    }
 })
 
 function setupEventListeners() {
