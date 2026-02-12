@@ -20,5 +20,23 @@ const APIHandler = {
             console.error('Error fetching number of day:', err)
             throw err
         }
+    },
+
+    async fetchConvertedNumber(num, base) {
+        try {
+            const response = await fetch(`${this.BASE_API}${this.CONVERT_ROUTE}?number=${num}&to=${base}`, {method: "GET"})
+
+            if (!response.ok) {
+                throw new Error('Convertion API request failed')
+            }
+
+            const data = await response.json()
+
+            return data.contents
+        } catch (err) {
+            console.error('Error fetching converted number:', err)
+            return num.toString(base)
+        }
+        
     }
 }

@@ -13,6 +13,13 @@
             <p class="subtitle">Trouve le nombre du jour</p>
         </header>
 
+        <div class="lucky-container">
+            <button id="luckyButton" class="lucky-button" onclick="feelingLucky()">🎲 J'ai de la chance</button>
+            <div class="card lucky-search hidden"  id="luckySearch">
+            </div>
+        </div>
+        
+
         <!-- Jeu Numberdle -->
         <div class="card number-of-day">
             <div id="gameStatus" class="game-status">Le jeu charge...</div>
@@ -63,6 +70,7 @@
     <script src="scripts/apiHandler.js"></script>
     <script src="scripts/numberdle.js"></script>
     <script src="scripts/numberInfoChecker.js"></script>
+    <script src="scripts/luckySearch.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

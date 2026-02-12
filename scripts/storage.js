@@ -41,8 +41,6 @@ const LocalStorageManager = {
                 return null
             }
 
-            console.log("Contenu du localStorage :", savedGame)
-
             return gameState
         } catch (err) {
             console.error('Error loading game:', err)

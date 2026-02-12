@@ -259,26 +259,50 @@ button:disabled {
     opacity: 0.5;
 }
 
-.lucky-button {
-    background: linear-gradient(135deg, #F6F740 0%, #61E786 100%);
-    color: #363635;
-}
-
-.lucky-button:hover {
-    background: linear-gradient(135deg, #e6e730 0%, #51d776 100%);
-    color: #363635;
-}
-
-/* Search Section */
-.search-section {
-    margin-top: 20px;
-}
-
-.search-bar {
+.lucky-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    flex-direction: column; /* Pour empiler le bouton et la carte verticalement */
+    align-items: flex-end; /* Alignement à droite */
+    gap: 10px; /* Espace entre le bouton et la carte */
+}
+
+#luckyButton {
+    padding: 10px 20px;
+    background: #473BF0;
+    color: #EAE1DF;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 8px rgba(74, 111, 165, 0.3);
+    z-index: 10;
+    border: 2px solid #2C4A72;
+}
+
+/* Effet au survol */
+#luckyButton:hover {
+    background: #473BF0; /* Bleu légèrement plus foncé au survol */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(74, 111, 165, 0.4);
+    color: #F6F740; /* Texte jaune pour un effet "chanceux" */
+}
+
+/* Effet au clic */
+#luckyButton:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(74, 111, 165, 0.3);
+}
+
+.lucky-search {
+    max-width: 300px;
+    margin: 20px auto 0;
+    padding: 15px;
+    text-align: center;
 }
 
 /* Results */
@@ -382,6 +406,7 @@ button:disabled {
 }
 
 .hidden {
+    display: none;
     visibility: hidden;
 }
 
