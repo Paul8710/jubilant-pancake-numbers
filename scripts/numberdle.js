@@ -43,13 +43,11 @@ const Numberdle = {
             LocalStorageManager.saveGame(this.gameState)
 
             document.getElementById('hiddenLoading').classList.remove('hidden')
-            document.getElementById('dayFact').classList.add('hidden')
 
             this.updateStatus('🎯 Devine le nombre du jour !')
         } catch (err) {
             console.error('Error creating new game:', err)
-            document.getElementById('dayFact').textContent = 'Erreur lors du chargement du jeu. Réessaye plus tard.'
-            document.getElementById('dayFact').classList.add('error')
+            this.updateStatus('Erreur lors du chargement du jeu. Réessaye plus tard.', 'error')
         }
     },
 
@@ -170,7 +168,7 @@ const Numberdle = {
 
     // Update status message
     updateStatus(message, type = 'info') {
-        const statusDiv = document.getElementById('gameStatus')
+        const statusDiv = document.getElementById('dayFact')
         statusDiv.textContent = message
         statusDiv.className = `game-status status-${type}`
     },
