@@ -26,13 +26,20 @@ const Numberdle = {
         try {
             const dailyNumber = await APIHandler.fetchNumberOfDay()
 
-            this.gameState.targetNumber = dailyNumber.number
-
-            this.gameState.targetData.even = dailyNumber.general-facts.even.value
-            this.gameState.targetData.palindrome = dailyNumber.general-facts.palindrome.value
-            this.gameState.targetData.digitSum = dailyNumber.recreational.digitssum.value
-            this.gameState.targetData.digitAmount = dailyNumber.recreational.noofdigits.value
-            this.gameState.targetData.prime = dailyNumber.prime-facts.prime.value
+            this.gameState = {
+                targetNumber: parseInt(dailyData.number),
+                targetData: {
+                    number: parseInt(dailyData.number),
+                    even: dailyData['general-facts'].even.value,
+                    palindrome: dailyData['general-facts'].palindrome.value,
+                    digitSum: dailyData.recreational.digitssum.value,
+                    digitAmount: dailyData.recreational.noofdigits.value,
+                    prime: dailyData['prime-facts'].prime.value
+                },
+                attempts: [],
+                gameOver: false,
+                date: StorageManager.getTodayString()
+            }
 
             LocalStorageManager.saveGame(this.gameState)
 
@@ -43,6 +50,7 @@ const Numberdle = {
         } catch (err) {
             console.error('Error creating new game:', err)
             document.getElementById('dayFact').textContent = 'Erreur lors du chargement du jeu. Réessaye plus tard.'
+            document.getElementById('dayFact').classList.add('error')
         }
     },
 
@@ -71,12 +79,13 @@ const Numberdle = {
 
     analyzeGuess(guessValue) {
         const target = this.gameState.targetNumber
+        const targetData = this.gameState.targetData
 
-        const targetDigitCount = this.gameState.targetData.digitAmount
-        const targetDigitSum = this.gameState.targetData.digitSum
-        const targetIsEven = this.gameState.targetData.even
-        const targetIsPalindrome = this.gameState.targetData.palindrome
-        const targetIsPrime = this.gameState.targetData.prime
+        const targetDigitCount = targetData.digitAmount
+        const targetDigitSum = targetData.digitSum
+        const targetIsEven = targetData.even
+        const targetIsPalindrome = targetData.palindrome
+        const targetIsPrime = targetData.prime
 
         const guessDigitCount = numberInfoChecker.getDigitsAmount(guessValue)
         const guessDigitSum = numberInfoChecker.calculateDigitSum(guessValue)
@@ -92,12 +101,12 @@ const Numberdle = {
             
             // Digit count comparison
             digitCount: guessDigitCount,
-            digitCountColor: this.getProximityColor(guessDigitCount, targetDigitCount),
+            digitCountColor: this.getProximityColor(guessDigitCount, targetDigitCount, 100),
             digitCountArrow: guessDigitCount < targetDigitCount ? 'up' : (guessDigitCount > targetDigitCount ? 'down' : null),
             
             // Digit sum comparison
             digitSum: guessDigitSum,
-            digitSumColor: this.getProximityColor(guessDigitSum, targetDigitSum),
+            digitSumColor: this.getProximityColor(guessDigitSum, targetDigitSum, 5),
             digitSumArrow: guessDigitSum < targetDigitSum ? 'up' : (guessDigitSum > targetDigitSum ? 'down' : null),
             
             // Boolean comparisons
@@ -165,6 +174,13 @@ const Numberdle = {
         const statusDiv = document.getElementById('gameStatus')
         statusDiv.textContent = message
         statusDiv.className = `game-status status-${type}`
+    },
+
+    // Get proximity color
+    getProximityColor(value, target, distance = 1) {
+        if (value === target) return 'correct'
+        if (Math.abs(value - target) <= distance) return 'close'
+        return 'wrong'
     }
 }
 
